@@ -21,7 +21,6 @@ require("lazy").setup({
         -- import/override with your plugins
         { import = "plugins" },
         { import = "lazyvim.plugins.extras.test.core" },
-        -- { import = "lazyvim.plugins.extras.lang.elixir" },
         { import = "lazyvim.plugins.extras.lang.nix" },
         {
             import = "lazyvim.plugins.extras.lang.python",
@@ -40,9 +39,10 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.coding.mini-surround" },
         { import = "lazyvim.plugins.extras.editor.mini-diff" },
         { import = "lazyvim.plugins.extras.editor.mini-move" },
-        { import = "lazyvim.plugins.extras.lang.tailwind" },
         { import = "lazyvim.plugins.extras.lang.svelte" },
         { import = "lazyvim.plugins.extras.lang.rust" },
+        { import = "lazyvim.plugins.extras.lang.elixir" },
+        { import = "lazyvim.plugins.extras.lang.tailwind" },
         { import = "lazyvim.plugins.extras.util.mini-hipatterns" }, -- Tailwind
         {
             "nvim-telescope/telescope-frecency.nvim",
