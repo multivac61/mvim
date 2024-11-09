@@ -11,11 +11,6 @@ for _, val in pairs({ "<A-j>", "<A-k>" }) do
     vim.keymap.del({ "n", "i", "v" }, val)
 end
 
--- Don't want navigation in terminal-mode
-for _, val in pairs({ "<C-h>", "<C-j>", "<C-k>", "<C-l>" }) do
-    vim.keymap.del("t", val)
-end
-
 keymap("i", "jj", "<Esc>", { desc = "Exit insert mode" })
 
 vim.api.nvim_buf_set_var(0, "cmp", false)
@@ -32,8 +27,3 @@ keymap({ "n", "v" }, "<leader>uU", function()
     end
 end, { desc = "Toggle suggestions" })
 
--- Don't use nvim toggle term stuff.. use floatx term instead!
-vim.keymap.del("n", "<leader>ft")
-vim.keymap.del("n", "<leader>fT")
-vim.keymap.del("n", "<C-_>")
-vim.keymap.del("n", "<C-/>")
