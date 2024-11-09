@@ -27,3 +27,4 @@ keymap({ "n", "v" }, "<leader>uU", function()
     end
 end, { desc = "Toggle suggestions" })
 
+keymap("v", "<leader>ml", "<Esc>`>a](<C-r>*)<C-o>`<[<Esc>")
