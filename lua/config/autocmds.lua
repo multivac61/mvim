@@ -7,10 +7,3 @@ vim.api.nvim_create_autocmd("FocusLost", {
     command = "silent! wa",
     pattern = "*",
 })
-
--- Filetype detection
-vim.filetype.add({
-    extension = {
-        heex = "heex",
-    },
-})
