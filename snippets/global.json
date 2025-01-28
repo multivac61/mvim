@@ -4,7 +4,7 @@
       "bang"
     ],
     "body": [
-      "#!/usr/bin/env ${1:sh|zsh|bash|python|node}"
+      "#!/usr/bin/env bash"
     ],
     "description": "Shebang!"
   },
