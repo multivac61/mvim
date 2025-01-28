@@ -45,19 +45,6 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.lang.tailwind" },
         { import = "lazyvim.plugins.extras.util.mini-hipatterns" }, -- Tailwind
         {
-            "nvim-telescope/telescope-frecency.nvim",
-            lazy = false,
-            config = function()
-                require("telescope").load_extension("frecency")
-                vim.keymap.set("n", "<Leader>f.", function()
-                    require("telescope").extensions.frecency.frecency({ workspace = "CWD" })
-                end, { desc = "Find files in CWD by frecency" })
-                vim.keymap.set("n", "<Leader>fF", function()
-                    require("telescope").extensions.frecency.frecency({})
-                end, { desc = "Find files by frecency" })
-            end,
-        },
-        {
             "folke/noice.nvim",
             opts = {
                 lsp = {
