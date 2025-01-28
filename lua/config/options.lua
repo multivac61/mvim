@@ -20,3 +20,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 -- Don't show tabs
 vim.cmd([[ set showtabline=0 ]])
+
+-- Disable animations
+vim.g.snacks_animate = false
