@@ -27,9 +27,8 @@ require("lazy").setup({
             opts = {
                 adapters = {
                     ["neotest-python"] = {
-                        -- Here you can specify the settings for the adapter, i.e.
-                        runner = "pytest",
-                        python = "${pythonPlusDot}",
+                        runner = { "pytest", "uv run pytest" },
+                        python = { "python", "python3" },
                     },
                 },
             },
