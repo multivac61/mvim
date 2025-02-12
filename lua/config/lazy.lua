@@ -19,7 +19,6 @@ require("lazy").setup({
         -- add LazyVim and import its plugins
         { "LazyVim/LazyVim", import = "lazyvim.plugins", opts = { colorscheme = "catppuccin-mocha" } },
         -- import/override with your plugins
-        { import = "plugins" },
         { import = "lazyvim.plugins.extras.test.core" },
         { import = "lazyvim.plugins.extras.lang.nix" },
         {
@@ -43,6 +42,7 @@ require("lazy").setup({
         { import = "lazyvim.plugins.extras.lang.elixir" },
         { import = "lazyvim.plugins.extras.lang.tailwind" },
         { import = "lazyvim.plugins.extras.util.mini-hipatterns" }, -- Tailwind
+        { import = "plugins" },
         {
             "folke/noice.nvim",
             opts = {
@@ -74,7 +74,6 @@ require("lazy").setup({
         { "nvim-neo-tree/neo-tree.nvim", enabled = false },
         { "akinsho/bufferline.nvim", enabled = false },
         { "nvimdev/dashboard-nvim", enabled = false },
-        { import = "plugins" },
     },
     defaults = {
         -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
