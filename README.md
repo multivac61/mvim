@@ -1,11 +1,5 @@
-My neovim config.
+`mvim` is my neovim config based on [LazyVim](https://www.lazyvim.org)
 
-## Installation
+## Running
 
-Link the repo to `~/.config/nvim`
-
-```
-ln -s mvim ~/.config/nvim
-```
-
-and run `nvim`.
+If you have nix you can run me using `nix run github:multivac61/mvim`
