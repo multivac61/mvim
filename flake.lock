@@ -21,6 +21,26 @@
         "type": "github"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1740318342,
+        "narHash": "sha256-fjr9+3Iru6O5qE+2oERQkabqAUXx4awm0+i2MBcta1U=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "b5ab2c7fdaa807cf425066ab7cd34b073946b1ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1740126099,
@@ -40,8 +60,30 @@
     "root": {
       "inputs": {
         "blueprint": "blueprint",
+        "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "srvos": "srvos",
         "treefmt-nix": "treefmt-nix"
+      }
+    },
+    "srvos": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1740012831,
+        "narHash": "sha256-u6Y5ttXBuQ+tyyCei07QnbNL6Gydv55OpoGh4fXzTqg=",
+        "owner": "nix-community",
+        "repo": "srvos",
+        "rev": "f6ddf92bc61e021ea05c971a055624509ffac429",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "srvos",
+        "type": "github"
       }
     },
     "systems": {
