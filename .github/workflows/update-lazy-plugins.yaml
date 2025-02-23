@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@main
         with:
           submodules: true
-      - uses: cachix/install-nix-action@main
+      - uses: cachix/install-nix-action@master
       - name: Update vim plugins
         run: |
           nix run .#nvim -- --headless "+Lazy! update" +qa
