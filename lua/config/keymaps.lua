@@ -25,3 +25,7 @@ keymap({ "n", "v" }, "<leader>uU", function()
 end, { desc = "Toggle suggestions" })
 
 keymap("v", "<leader>ml", "<Esc>`>a](<C-r>*)<C-o>`<[<Esc>")
+
+keymap({ "n", "v" }, "<leader>e", "<cmd>LazyExtra<CR>", { desc = "Open Lazy Extra menu" })
+
+keymap({ "n", "v" }, "<leader>r", "<cmd>source $MYVIMRC<CR>", { desc = "Reload vim config" })
