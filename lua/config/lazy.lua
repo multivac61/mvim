@@ -71,6 +71,14 @@ require("lazy").setup({
                 { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
             },
         },
+        {
+            "MeanderingProgrammer/render-markdown.nvim",
+            opts = {
+                win_options = {
+                    conceallevel = { default = 0, rendered = 3 },
+                },
+            },
+        },
         { "nvim-neo-tree/neo-tree.nvim", enabled = false },
         { "akinsho/bufferline.nvim", enabled = false },
         { "nvimdev/dashboard-nvim", enabled = false },
