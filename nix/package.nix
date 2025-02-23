@@ -66,7 +66,7 @@ let
     unzip
     bash-language-server
     lazygit
-    coreutils # Explicitly include coreutils
+    coreutils
 
     #ocaml-ng.ocamlPackages_5_0.ocaml-lsp
     #ocaml-ng.ocamlPackages_5_0.ocamlformat
@@ -96,7 +96,7 @@ let
       (_: {
         passthru.rev = vimPlugins.nvim-treesitter.src.rev;
       });
-  lspEnv = buildEnv {
+  lspEnv = pkgs.buildEnv {
     name = "lsp-servers";
     paths = nvim-lsp-packages;
   };
