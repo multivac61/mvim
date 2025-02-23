@@ -1,7 +1,5 @@
 {
   pkgs,
-  inputs,
-  nvim-appname ? "mvim",
 }:
 with pkgs;
 let
@@ -48,7 +46,7 @@ let
     zls
 
     # mvim custom
-    stdenv.cc # neede to compile and link nil and other packages
+    stdenv.cc # needed to compile and link nl and other packages
     elixir-ls
     emmet-language-server
     vscode-langservers-extracted # json-lsp
@@ -68,6 +66,7 @@ let
     unzip
     bash-language-server
     lazygit
+    coreutils # Explicitly include coreutils
 
     #ocaml-ng.ocamlPackages_5_0.ocaml-lsp
     #ocaml-ng.ocamlPackages_5_0.ocamlformat
@@ -101,39 +100,57 @@ let
     name = "lsp-servers";
     paths = nvim-lsp-packages;
   };
+  name = "mvim";
 in
 writeShellApplication {
-  name = "nvim";
+  inherit name;
   text = ''
     set -efux
     unset VIMINIT
-    export PATH=${lspEnv}/bin:${neovim}/bin:$PATH
-    export NVIM_APPNAME=${nvim-appname}
+    export PATH="${pkgs.coreutils}/bin:${lspEnv}/bin:${neovim}/bin:$PATH"
+    export NVIM_APPNAME=${name}
 
     XDG_CONFIG_HOME=''${XDG_CONFIG_HOME:-$HOME/.config}
     XDG_DATA_HOME=''${XDG_DATA_HOME:-$HOME/.local/share}
 
-    mkdir -p "$XDG_CONFIG_HOME/$NVIM_APPNAME" "$XDG_DATA_HOME"
-    chmod -R u+w "$XDG_CONFIG_HOME/$NVIM_APPNAME"
-    rm -rf "{$XDG_CONFIG_HOME/$NVIM_APPNAME:?}"
-    ${pkgs.rsync}/bin/rsync -av --delete '${../.}'/ "$XDG_CONFIG_HOME/$NVIM_APPNAME/"
-    chmod -R u+w "$XDG_CONFIG_HOME/$NVIM_APPNAME"
-    echo "${treesitter-grammars.rev}" > "$XDG_CONFIG_HOME/$NVIM_APPNAME/treesitter-rev"
+    # Safety checks for required variables
+    if [ -z "$XDG_CONFIG_HOME" ] || [ -z "$NVIM_APPNAME" ]; then
+      echo "Error: XDG_CONFIG_HOME or NVIM_APPNAME is not set" >&2
+      exit 1
+    fi
 
-    # lock file is not in sync with treesitter-rev, force update of lazy-lock.json
-    if ! grep -q "${treesitter-grammars.rev}" "$XDG_CONFIG_HOME/$NVIM_APPNAME/lazy-lock.json"; then
-      # annoyingly we would run this on every nvim invocation again because we overwrite the lock file
+    # Ensure we're not accidentally deleting root directory
+    CONFIG_DIR="$XDG_CONFIG_HOME/$NVIM_APPNAME"
+    if [ "$CONFIG_DIR" = "/" ] || [ -z "$CONFIG_DIR" ]; then
+      echo "Error: Invalid config directory path" >&2
+      exit 1
+    fi
+
+    mkdir -p "$CONFIG_DIR" "$XDG_DATA_HOME"
+    chmod -R u+w "$CONFIG_DIR"
+    rm -rf "$CONFIG_DIR"
+    cp -arfT '${../.}' "$CONFIG_DIR"
+    chmod -R u+w "$CONFIG_DIR"
+    echo "${treesitter-grammars.rev}" > "$CONFIG_DIR/treesitter-rev"
+
+    if ! grep -q "${treesitter-grammars.rev}" "$CONFIG_DIR/lazy-lock.json"; then
       nvim --headless "+Lazy! update" +qa
     else
-      nvim --headless -c 'quitall' # install plugins, if needed
+      nvim --headless -c 'quitall'
     fi
+
     mkdir -p "$XDG_DATA_HOME/$NVIM_APPNAME/lib/" "$XDG_DATA_HOME/$NVIM_APPNAME/site/"
 
-    # Remove existing parser directory if it exists
-    rm -rf "$XDG_DATA_HOME/$NVIM_APPNAME/site/parser"
+    PARSER_DIR="$XDG_DATA_HOME/$NVIM_APPNAME/site/parser"
 
-    # Copy the treesitter grammars to the parser directory
-    ${pkgs.rsync}/bin/rsync -av "${treesitter-grammars}/" "$XDG_DATA_HOME/$NVIM_APPNAME/site/parser/"
+    # If the parser directory exists, move it to a backup location instead of trying to modify it
+    if [ -d "$PARSER_DIR" ]; then
+      mv "$PARSER_DIR" "$PARSER_DIR.old" 2>/dev/null || true
+    fi
+
+    # Create the symlink using GNU ln
+    ln -sfn "${treesitter-grammars}" "$PARSER_DIR"
+
     exec nvim "$@"
   '';
 }
