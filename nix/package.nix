@@ -116,7 +116,7 @@ writeShellApplication {
     mkdir -p "$XDG_CONFIG_HOME/$NVIM_APPNAME" "$XDG_DATA_HOME"
     chmod -R u+w "$XDG_CONFIG_HOME/$NVIM_APPNAME"
     rm -rf "{$XDG_CONFIG_HOME/$NVIM_APPNAME:?}"
-    cp -arfT '${../.}'/ "$XDG_CONFIG_HOME/$NVIM_APPNAME"
+    ${pkgs.rsync}/bin/rsync -av --delete '${../.}'/ "$XDG_CONFIG_HOME/$NVIM_APPNAME/"
     chmod -R u+w "$XDG_CONFIG_HOME/$NVIM_APPNAME"
     echo "${treesitter-grammars.rev}" > "$XDG_CONFIG_HOME/$NVIM_APPNAME/treesitter-rev"
 
@@ -128,9 +128,12 @@ writeShellApplication {
       nvim --headless -c 'quitall' # install plugins, if needed
     fi
     mkdir -p "$XDG_DATA_HOME/$NVIM_APPNAME/lib/" "$XDG_DATA_HOME/$NVIM_APPNAME/site/"
-    # ln -sfT "${vimPlugins.telescope-fzf-native-nvim}/build/libfzf.so" "$XDG_DATA_HOME/$NVIM_APPNAME/lib/libfzf.so"
-    ln -sfT "${treesitter-grammars}" "$XDG_DATA_HOME/$NVIM_APPNAME/site/parser"
 
+    # Remove existing parser directory if it exists
+    rm -rf "$XDG_DATA_HOME/$NVIM_APPNAME/site/parser"
+
+    # Copy the treesitter grammars to the parser directory
+    ${pkgs.rsync}/bin/rsync -av "${treesitter-grammars}/" "$XDG_DATA_HOME/$NVIM_APPNAME/site/parser/"
     exec nvim "$@"
   '';
 }
