@@ -17,6 +17,6 @@
         "aarch64-darwin"
         "x86_64-linux"
       ];
-      prefix = "nix/";
+      prefix = "nix";
     };
 }
