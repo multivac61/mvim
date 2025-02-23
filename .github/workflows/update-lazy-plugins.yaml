@@ -14,8 +14,8 @@ jobs:
       - uses: cachix/install-nix-action@master
       - name: Update vim plugins
         run: |
-          nix run .#nvim -- --headless "+Lazy! update" +qa
-          cp $HOME/.config/nvim-mic92/lazy-lock.json home/.config/nvim/lazy-lock.json
+          nix run .# -- --headless "+Lazy! update" +qa
+          cp $HOME/.config/mvim/lazy-lock.json lazy-lock.json
       - uses: actions/create-github-app-token@main
         id: app-token
         with:
