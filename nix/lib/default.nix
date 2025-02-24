@@ -57,7 +57,6 @@ _: {
       vtsls
       xsel # for lazygit copy/paste to clipboard
       ripgrep
-      ast-grep
       fd
       fzf
       cargo
@@ -66,7 +65,8 @@ _: {
       bash-language-server
       lazygit
       coreutils
-    ];
+    ]
+    ++ lib.optional (stdenv.hostPlatform.system == "aarch64-linux") ast-grep ;
 
   treesitter-grammars =
     { pkgs, ... }:
