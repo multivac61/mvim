@@ -30,6 +30,7 @@ In order to use this action, you need to:
    as `CI_PRIVATE_KEY`.
 5. Create a new `auto-merge`
    [label in the GitHub UI](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label).
+6. [Enable auto-merge in your GitHub repo settings](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-auto-merge-for-pull-requests-in-your-repository#managing-auto-merge).
 
 Then you can upload the code to your own GitHub repo and
 
