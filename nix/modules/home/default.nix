@@ -2,13 +2,12 @@
 {
   config,
   pkgs,
-  perSystem,
   ...
 }:
 let
   nvim-lsp-packages = flake.lib.nvim-lsp-packages { inherit pkgs; };
   treesitter-grammars = flake.lib.treesitter-grammars { inherit pkgs; };
-  mvim = perSystem.self.mvim;
+  inherit (flake.packages.${pkgs.hostPlatform.system}) mvim;
 in
 {
   home.packages = nvim-lsp-packages ++ [ mvim ];
