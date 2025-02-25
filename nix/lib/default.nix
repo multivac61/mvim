@@ -66,7 +66,7 @@ _: {
       lazygit
       coreutils
     ]
-    ++ lib.optional (stdenv.hostPlatform.system != "aarch64-linux") ast-grep ;
+    ++ lib.optional (stdenv.hostPlatform.system != "aarch64-linux") ast-grep;
 
   treesitter-grammars =
     { pkgs, ... }:
@@ -86,4 +86,14 @@ _: {
       (_: {
         passthru.rev = vimPlugins.nvim-treesitter.src.rev;
       });
+  neovim =
+    { pkgs, ... }:
+    with pkgs;
+    wrapNeovimUnstable neovim-unwrapped (
+      neovimUtils.makeNeovimConfig {
+        wrapRc = false;
+        withRuby = false;
+        # extraLuaPackages = ps: [ (ps.callPackage ./lua-tiktoken.nix { }) ];
+      }
+    );
 }

@@ -6,13 +6,7 @@ with pkgs;
 let
   treesitter-grammars = flake.lib.treesitter-grammars { inherit pkgs; };
   nvim-lsp-packages = flake.lib.nvim-lsp-packages { inherit pkgs; };
-  neovim = wrapNeovimUnstable neovim-unwrapped (
-    neovimUtils.makeNeovimConfig {
-      wrapRc = false;
-      withRuby = false;
-      # extraLuaPackages = ps: [ (ps.callPackage ./lua-tiktoken.nix { }) ];
-    }
-  );
+  neovim = flake.lib.neovim { inherit pkgs; };
   lspEnv = pkgs.buildEnv {
     name = "lsp-servers";
     paths = nvim-lsp-packages;
