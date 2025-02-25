@@ -14,6 +14,7 @@ in
   home.activation.nvim = ''
     XDG_CONFIG_HOME=''${XDG_CONFIG_HOME:-$HOME/.config}
     NVIM_APPNAME=''${NVIM_APPNAME:-nvim}
+    mkdir -p $XDG_CONFIG_HOME/$NVIM_APPNAME
     echo "${treesitter-grammars.rev}" > "$XDG_CONFIG_HOME/nvim/treesitter-rev"
     if [[ -f $XDG_CONFIG_HOME/$NVIM_APPNAME/lazy-lock.json ]]; then
       if ! grep -q "${treesitter-grammars.rev}" "$XDG_CONFIG_HOME/$NVIM_APPNAME/lazy-lock.json"; then
