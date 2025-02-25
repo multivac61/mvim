@@ -5,7 +5,7 @@
   ];
 
   environment.systemPackages = [
-    perSystem.self.default
+    perSystem.self.mvim
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
