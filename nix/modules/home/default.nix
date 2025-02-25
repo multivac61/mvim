@@ -1,6 +1,7 @@
 { flake, ... }:
 {
   pkgs,
+  config,
   ...
 }:
 let
@@ -23,7 +24,7 @@ in
     fi
   '';
 
-  home.file.".config/nvim".source = flake;
-  home.file.".config/nvim".recursive = true;
+  xdg.enable = true;
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink flake;
   home.file.".config/nvim/site/parser".source = treesitter-grammars;
 }
