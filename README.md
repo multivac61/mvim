@@ -31,8 +31,20 @@ In order to use this action, you need to:
 5. Create a new `auto-merge`
    [label in the GitHub UI](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#creating-a-label).
 6. [Enable auto-merge in your GitHub repo settings](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-auto-merge-for-pull-requests-in-your-repository#managing-auto-merge).
+7. Set up branch protection:
 
-Now you can upload the code and go to town with a sparking new auto-updating neovim config!
+- Go to repository Settings
+- Click "Branches" in the left sidebar
+- Click "Add branch protection rule"
+- For "Branch name pattern" enter: main
+- Check "Require status checks to pass before merging"
+- In the search box, type "Auto Merge Dependency Updates"
+- Also search for and add your ci workflow, e.g., building all systems using
+  [determinate-ci](https://github.com/DeterminateSystems/ci/tree/main) or
+  similar
+
+Now you can upload the code and go to town with a sparking new auto-updating
+neovim config!
 
 > [!NOTE]
 > Lots of the `nix` and CICD code is adopted from the venerable
